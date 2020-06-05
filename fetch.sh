@@ -4,7 +4,7 @@ PASS=xiaochi
 API="127.0.0.1:1234"
 
 # read from net
-curl "$API/$NAME" | while read line
+curl -s "$API/$NAME" | while read line
 do
 	dt=$( echo "$line" | cut -f 1 )
 	# name of other side
@@ -20,16 +20,26 @@ do
 	echo "DATE: $dt"
 
 	echo "$dgst"
-	echo $sign | base64 -d | openssl rsautl -verify -pubin -inkey ${other}_rsapublickey.pem
-	echo
+	d2=$( echo $sign | base64 -d | openssl rsautl -verify -pubin -inkey ${other}_rsapublickey.pem )
+	if [[ "$dgst" != "$d2" ]]; then
+		echo "!!! Invalid signature !!!"
+		echo "$d2"
+	fi
 
+	echo -n >.tmp
 	echo "$line" | cut -f"6-" | tr "\t" "\n" | while read line
 	do
-		echo $line | base64 -d |  openssl rsautl -passin pass:"$PASS" -decrypt -inkey rsaprivatekey.pem
-		echo
+		echo $line | base64 -d |  openssl rsautl -passin pass:"$PASS" -decrypt -inkey rsaprivatekey.pem >> .tmp
+		echo >> .tmp
 	done
+
+	d3=$( openssl dgst -sha1 .tmp | cut -d' ' -f2 )
+	if [[ "$dgst" != "$d3" ]]; then
+		echo "!!!! Invalid signature !!!!"
+		echo "$d3"
+	fi
+
+	cat .tmp
 	echo
 done
-
-
 

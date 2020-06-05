@@ -25,7 +25,7 @@ then
 fi
 
 # digest
-dgst=$(openssl dgst -sha1 letter)
+dgst=$( openssl dgst -sha1 letter | cut -d' ' -f2 )
 
 # construct real send file, as follows:
 #   from
