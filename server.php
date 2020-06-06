@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         touch($file);
     }
 
-    if (filesize($file)>MAX_FILE_SIZE) {
+    if (filesize($file) > MAX_FILE_SIZE) {
         shell("tail $file > $file"); // 只保留10条
     }
 
