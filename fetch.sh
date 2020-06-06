@@ -1,7 +1,7 @@
 # configuration
 NAME=xiaochi
 PASS=xiaochi
-API="127.0.0.1:1234"
+API="129.226.187.205:1234"
 
 # read from net
 curl -s "$API/$NAME" | while read line

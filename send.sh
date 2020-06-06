@@ -1,6 +1,6 @@
 # configuration
 NAME=xiaochi
-API="127.0.0.1:1234/server.php"
+API="129.226.187.205:1234/server.php"
 
 # the name of other side
 if [[ $# -lt 1 ]]
