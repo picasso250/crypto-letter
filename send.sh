@@ -1,6 +1,10 @@
+#!/bin/env bash
+
 # configuration
 NAME=xiaochi
 API="129.226.187.205:1234/server.php"
+
+set -e
 
 # the name of other side
 if [[ $# -lt 1 ]]

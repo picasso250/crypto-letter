@@ -1,7 +1,11 @@
+#!/bin/env bash
+
 # configuration
 NAME=xiaochi
 PASS=xiaochi
 API="129.226.187.205:1234"
+
+set -e
 
 # read from net
 curl -s "$API/$NAME" | while read line
