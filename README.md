@@ -1,6 +1,12 @@
 # crypto-letter
 
+Naive email system write in bash.
+
+Support by `openssl`.
+
 # 密信
+
+`bash` 脚本写的超简单的邮件系统。需要 `openssl` 支持。
 
 ## Usage
 
