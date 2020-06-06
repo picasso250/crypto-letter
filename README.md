@@ -32,6 +32,8 @@ edit and save file `letter` and then `send.sh <whom>` to send whom a message.
 
 将别人的公钥命名为 `<名字>_rsapublickey.pem`, 比如 `xiaochi_rsapublickey.pem`
 
+并且打开 `send.sh` 和 `fetch.sh` 文件将开头的配置修改成自己的名字
+
 发送信息：
 
 编辑 `letter` 文件 并 `send.sh <那人的名字>`
