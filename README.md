@@ -8,6 +8,38 @@ Support by `openssl`.
 
 `bash` 脚本写的超简单的邮件系统。需要 `openssl` 支持。
 
+## Generate your RSA key pair
+
+If you already have one, you can skip this section.
+
+Generate a private key using `3DES` with a pass `trousers` and length 1024.
+
+```
+openssl genrsa -out rsaprivatekey.pem -passout pass:trousers -des3 1024
+```
+
+Generate it's public key.
+
+```
+openssl rsa -in rsaprivatekey.pem -passin pass:trousers -pubout -out rsapublickey.pem
+```
+
+## 生成 RSA 密钥对
+
+如果你已经有了，可以跳过这个部分。
+
+产生1024位RSA私匙，用3DES加密它，口令为trousers，输出到文件rsaprivatekey.pem （这个口令你可以改成你自己的口令，这样安全性更高一点）
+
+```
+openssl genrsa -out rsaprivatekey.pem -passout pass:trousers -des3 1024
+```
+
+从文件rsaprivatekey.pem读取私匙，用口令trousers解密，生成的公钥匙输出到文件rsapublickey.pem
+
+```
+openssl rsa -in rsaprivatekey.pem -passin pass:trousers -pubout -out rsapublickey.pem
+```
+
 ## Usage
 
 You must exchange public key first.
@@ -18,7 +50,7 @@ Name your own public key `rsapublickey.pem`.
 
 Name other people's public key `<name>_rsapublickey.pem`, for example `xiaochi_rsapublickey.pem`.
 
-edit and save file `letter` and then `send.sh <whom>` to send whom a message.
+Edit and save file `letter` and then `send.sh <whom>` to send whom a message.
 
 `fetch.sh` to fetch messages others send to you.
 
