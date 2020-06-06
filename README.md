@@ -78,7 +78,7 @@ Edit and save file `letter` and then `send.sh <whom>` to send whom a message.
 
 I already build a server.
 
-if you like build your own server, just serve the `server.php` and ensure `DATA_DIR` is writable.
+If you'd like to build your own server, just serve the `server.php` and ensure `DATA_DIR` is writable.
 
 ## 构建服务器
 
