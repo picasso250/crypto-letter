@@ -3,6 +3,8 @@ define("DATA_DIR", __DIR__); // 保存消息的地方 应可写
 define('MAX_USER_COUNT', 100); // 最多用户数量
 define("MAX_FILE_SIZE", 1024 * 1024); // 用户最大文件 1M
 
+date_default_timezone_set("PRC");
+
 if (!is_dir(DATA_DIR)) {
     die("no data dir");
 }
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (filesize($file)>MAX_FILE_SIZE) {
         shell("tail $file > $file"); // 只保留10条
     }
-    
+
     $f = fopen($file, "a");
     fwrite($f, "$date\t$body\n");
     fclose($f);
