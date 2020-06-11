@@ -42,10 +42,10 @@ echo -n "$1	" >> .letter
 echo -n "$dgst	" >> .letter
 echo -n "$dgst" | openssl rsautl -sign -inkey rsaprivatekey.pem | base64 -w 0 >> .letter
 
-cat letter | while read line
+cat letter | while read
 do
 	echo -n "	" >> .letter
-	echo -n "$line" | openssl rsautl -encrypt -pubin -inkey $pbk | base64 -w 0 >> .letter
+	echo -n "$REPLY" | openssl rsautl -encrypt -pubin -inkey $pbk | base64 -w 0 >> .letter
 done
 
 curl -d@.letter "$API"

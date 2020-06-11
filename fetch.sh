@@ -38,7 +38,7 @@ do
 	done
 
 	d3=$( openssl dgst -sha1 .tmp | cut -d' ' -f2 )
-	if [[ "$dgst" != "$d3" ]]; then
+	if [[ "x$dgst" != "x$d3" ]]; then
 		echo "!!!! Invalid signature !!!!"
 		echo "$d3"
 	fi
