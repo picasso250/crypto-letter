@@ -8,17 +8,18 @@ API="129.226.187.205:1234"
 set -e
 
 # read from net
-curl -s "$API/$NAME" | while read line
+curl -s "$API/$NAME" | while read -e
 do
-	dt=$( echo "$line" | cut -f 1 )
+	# date
+	dt=$( echo "$REPLY" | cut -f 1 )
 	# name of other side
-	other=$( echo "$line" | cut -f 2 )
+	other=$( echo "$REPLY" | cut -f 2 )
 
 	# digest
-	dgst=$( echo "$line" | cut -f 4 )
+	dgst=$( echo "$REPLY" | cut -f 4 )
 
 	# signature
-	sign=$( echo "$line" | cut -f 5 )
+	sign=$( echo "$REPLY" | cut -f 5 )
 
 	echo "FROM: $other"
 	echo "DATE: $dt"
@@ -30,8 +31,8 @@ do
 		echo "$d2"
 	fi
 
-	echo -n >.tmp
-	echo "$line" | cut -f"6-" | tr "\t" "\n" | while read line
+	rm -f .tmp
+	echo "$REPLY" | cut -f"6-" | tr "\t" "\n" | while read line
 	do
 		echo $line | base64 -d |  openssl rsautl -passin pass:"$PASS" -decrypt -inkey rsaprivatekey.pem >> .tmp
 		echo >> .tmp
