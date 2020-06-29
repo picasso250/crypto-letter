@@ -3,6 +3,7 @@
 # configuration
 NAME=xiaochi
 API="129.226.187.205:1234/server.php"
+# LENGTH=1024
 
 set -e
 
@@ -28,8 +29,10 @@ then
 	exit 1
 fi
 
+cat letter | ./catlen > _letter
+
 # digest
-dgst=$( openssl dgst -sha1 letter | cut -d' ' -f2 )
+dgst=$( openssl dgst -sha1 _letter | cut -d' ' -f2 )
 
 # construct real send file, as follows:
 #   from
@@ -42,7 +45,7 @@ echo -n "$1	" >> .letter
 echo -n "$dgst	" >> .letter
 echo -n "$dgst" | openssl rsautl -sign -inkey rsaprivatekey.pem | base64 -w 0 >> .letter
 
-cat letter | while read
+cat _letter | while read
 do
 	echo -n "	" >> .letter
 	echo -n "$REPLY" | openssl rsautl -encrypt -pubin -inkey $pbk | base64 -w 0 >> .letter
